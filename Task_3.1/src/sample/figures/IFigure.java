@@ -1,13 +1,15 @@
 package sample.figures;
 
 import javafx.scene.image.PixelWriter;
-import sample.Drawers.LineDrawer;
+import sample.tools.ScreenConvertor;
+import sample.points.RealPoint;
 import sample.points.ScreenPoint;
 
 import java.util.ArrayList;
 
-public class IFigure {
-    protected ArrayList<ScreenPoint> points;
-    protected PixelWriter pw;
-    protected LineDrawer ld;
+public interface IFigure {
+    void draw(ScreenConvertor screenConvertor, PixelWriter pixelWriter);
+    ArrayList<RealPoint> getVertices();
+    ArrayList<ScreenPoint> getPoints();
+    void setPoints(ArrayList<ScreenPoint> points);
 }

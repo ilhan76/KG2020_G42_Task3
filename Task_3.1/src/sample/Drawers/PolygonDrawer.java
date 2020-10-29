@@ -1,19 +1,34 @@
 package sample.Drawers;
 
 import javafx.scene.image.PixelWriter;
+import sample.tools.ScreenConvertor;
+import sample.points.RealPoint;
+import sample.points.ScreenPoint;
 
-import java.awt.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class PolygonDrawer {
-    private final PixelWriter pw;
+    private ArrayList<ScreenPoint> countPolPoints = new ArrayList<>();
     private final LineDrawer ld;
+    private final ScreenConvertor screenConvertor;
 
-    public PolygonDrawer(PixelWriter pw, LineDrawer ld, List<Point> points) {
-        this.pw = pw;
-        this.ld = ld;
+    public PolygonDrawer(PixelWriter pw, ScreenConvertor screenConvertor) {
+        this.ld = new DDALineDrawer(pw);
+        this.screenConvertor = screenConvertor;
     }
-    public void draw(){
 
+    public void draw(List<RealPoint> vertices){
+        countPolPoints.clear();
+        RealPoint count = vertices.get(0);
+        for (int i = 1; i < vertices.size(); i++) {
+            ld.drawLine(screenConvertor.realToScreen(count), screenConvertor.realToScreen(vertices.get(i)));
+            count = vertices.get(i);
+            countPolPoints.addAll(ld.getPoints());
+        }
+        ld.drawLine(screenConvertor.realToScreen(vertices.get(0)), screenConvertor.realToScreen(vertices.get(vertices.size() - 1)));
+        countPolPoints.addAll(ld.getPoints());
     }
+
+    public ArrayList<ScreenPoint> getPoints(){return countPolPoints;}
 }
