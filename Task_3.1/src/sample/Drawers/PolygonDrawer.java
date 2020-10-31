@@ -1,15 +1,16 @@
 package sample.Drawers;
 
 import javafx.scene.image.PixelWriter;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import sample.tools.ScreenConvertor;
 import sample.points.RealPoint;
 import sample.points.ScreenPoint;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class PolygonDrawer {
-    private ArrayList<ScreenPoint> countPolPoints = new ArrayList<>();
+    private final ArrayList<ScreenPoint> countPolPoints = new ArrayList<>();
     private final LineDrawer ld;
     private final ScreenConvertor screenConvertor;
 

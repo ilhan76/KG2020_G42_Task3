@@ -1,6 +1,8 @@
 package sample.figures;
 
 import javafx.scene.image.PixelWriter;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import sample.Drawers.PolygonDrawer;
 import sample.tools.ScreenConvertor;
 import sample.points.RealPoint;
@@ -53,8 +55,26 @@ public class Rhombus implements IFigure{
         this.diagonalY = diagonalY;
         updateVertices();
     }
+    public void updateParam(){
+        diagonalX = distance(vertices.get(0), vertices.get(2));
+        diagonalY = distance(vertices.get(1), vertices.get(3));
+    }
     public ArrayList<ScreenPoint> getPoints(){return points;}
     public void setPoints(ArrayList<ScreenPoint> points){
         this.points = points;
+    }
+
+    @Override
+    public  ArrayList<Circle> drawFocus(ScreenConvertor screenConvertor, PixelWriter pixelWriter) {
+        ArrayList<Circle> circles = new ArrayList<>();
+        for (RealPoint vertex : vertices) {
+            Circle c = new Circle(screenConvertor.r2s(vertex).getX(), screenConvertor.r2s(vertex).getY(), 15, Color.BLUE);
+            circles.add(c);
+        }
+        return circles;
+    }
+
+    public double distance(RealPoint p1, RealPoint p2){
+        return Math.pow((Math.sqrt(p1.getX() - p2.getX()) + Math.sqrt(p1.getY() - p2.getY())), (double) 1/2);
     }
 }
